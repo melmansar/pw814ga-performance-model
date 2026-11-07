@@ -85,3 +85,6 @@ databank rated thrust.
 * The databank point is at standard day sea level (15 C), below the
   33 C ambient limit, so the engine runs with temperature margin there.
   ITT is not set equal to 965 C at the design point.
+*Fan pressure ratio is fixed at a textbook value with a range, source to be added. 
+ The overall pressure ratio is 33.56 from the databank and can be used to compute
+ the compressor pressure ratio.
