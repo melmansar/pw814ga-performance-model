@@ -15,3 +15,20 @@ def freestream(M0, gamma_cold):
     pi_r = tau_r**(gamma_cold/(gamma_cold - 1))
 
     return tau_r, pi_r
+
+def compress(pi, e, gamma):
+
+    """Returns temperature ratio for compressing component (e.g. fan, compressor, booster)
+
+    Inputs:
+    - Component pressure ratio, pi
+    - Component polytropic efficiency, e
+    - Specific heat ratio across component, gamma
+
+    Outputs:
+    - Component temperature ratio, tau
+    """
+
+    tau = pi**((gamma - 1)/(gamma*e))
+
+    return tau
