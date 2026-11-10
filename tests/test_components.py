@@ -16,4 +16,4 @@ def test_freestream_static():
 
     tau_r, pi_r = freestream(0, 1.4)
     assert tau_r == 1
-    assert tau_r == 1
+    assert pi_r == 1
