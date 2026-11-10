@@ -18,7 +18,7 @@ def freestream(M0, gamma_cold):
 
 def compress(pi, e, gamma):
 
-    """Returns temperature ratio for compressing component (e.g. fan, compressor, booster)
+    """Returns temperature ratio and isentropic efficiency for compressing component (e.g. fan, compressor, booster)
 
     Inputs:
     - Component pressure ratio, pi
@@ -27,8 +27,11 @@ def compress(pi, e, gamma):
 
     Outputs:
     - Component temperature ratio, tau
+    - Component isentropic efficiency, eta
     """
 
     tau = pi**((gamma - 1)/(gamma*e))
 
-    return tau
+    eta = (pi**((gamma - 1)/gamma) - 1)/(tau - 1)
+
+    return tau, eta
