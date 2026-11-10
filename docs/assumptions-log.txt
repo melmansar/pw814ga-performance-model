@@ -60,6 +60,37 @@ https://www.easa.europa.eu/en/downloads/33453/en
 Cross check: the TCDS takeoff thrust (6863 daN = 68.63 kN) matches the
 databank rated thrust.
 
+1.3 Engine architecture
+
+Source: EASA TCDS IM.E.096, Issue 07, Section III.2, page 7.
+
+  Two spool, high bypass ratio turbofan.
+  Low pressure spool:  fan, 2 boost stages, 5 stage low pressure
+                       turbine
+  High pressure spool: 8 stage axial high pressure compressor,
+                       2 stage high pressure turbine
+  Combustor:           straight flow annular, low emission
+
+The overall pressure ratio of 33.56 is split across the fan (core
+side), the booster and the high pressure compressor.
+
+
+1.4 Exhaust layout
+
+Source: Pratt & Whitney, PW800 product page, cutaway diagram
+labeled "Mixer" and "Bypass Duct". Accessed 10 November 2026.
+https://www.rtx.com/en/prattwhitney/products/business-aviation-engines/pw800
+
+The PW814GA has a mixed exhaust: bypass air and core exhaust mix
+before leaving through a single nozzle.
+
+
+1.5 Textbook reference for unit tests
+
+Source: Mattingly, Elements of Gas Turbine Propulsion, Tata McGraw
+Hill edition (year to be added from title page), Example 7-6,
+pp. 398 to 400. Separate exhaust turbofan with losses, used to test
+every component the PW814GA shares with it (all except the mixer).
 
 2. OPEN QUESTIONS
 -----------------
@@ -69,8 +100,11 @@ databank rated thrust.
 * The ITT table on page 9 lists the PW814GA and PW815GA together.
   Confirm that 965 C and 956 C apply to the PW814GA row (the 975 C
   starting limit may belong to the PW815GA).
-* Exhaust layout (mixed or separate flow) is not stated in the TCDS.
-  Need another source.
+* Exact mixer pressure condition used by Mattingly (stagnation or
+  static pressure balance, Mach number at mixer entry). Find it in
+  the mixed exhaust turbofan section and cite the page.
+* Source and range for how the core pressure ratio splits between
+  the booster and the high pressure compressor.
 
 
 3. MODELING ASSUMPTIONS
@@ -85,6 +119,19 @@ databank rated thrust.
 * The databank point is at standard day sea level (15 C), below the
   33 C ambient limit, so the engine runs with temperature margin there.
   ITT is not set equal to 965 C at the design point.
-*Fan pressure ratio is fixed at a textbook value with a range, source to be added. 
- The overall pressure ratio is 33.56 from the databank and can be used to compute
- the compressor pressure ratio.
+* Fan pressure ratio is not guessed. It is solved from pressure
+  balance at the mixer: the bypass and core streams must have about
+  the same pressure where they meet (method from Mattingly, page to
+  be cited). The split of the remaining core pressure ratio between
+  the booster and the high pressure compressor is fixed at a textbook
+  value with a range.
+* Component efficiencies (fan, booster, compressors, turbines) are
+  input as polytropic efficiencies, not isentropic. Polytropic
+  efficiency describes the quality of each small compression or
+  expansion step, so it stays about the same for a given technology
+  level at any pressure ratio. Isentropic efficiency drops as
+  pressure ratio rises, even with the same technology (Mattingly
+  Example 7-6, pp. 398 to 399: fan e = 0.89 gives 88.2%, compressor
+  e = 0.90 gives 84.2%). Holding polytropic efficiency fixed keeps
+  the Week 4 pressure ratio trade study fair. Isentropic efficiency
+  is still calculated and reported for each component.
