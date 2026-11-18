@@ -12,6 +12,7 @@ def freestream(M0, gamma_cold):
     """
 
     tau_r = 1 + 0.5*(gamma_cold - 1)*M0**2
+
     pi_r = tau_r**(gamma_cold/(gamma_cold - 1))
 
     return tau_r, pi_r
@@ -55,3 +56,23 @@ def burner(T_t3, T_t4, cp_c, cp_t, eta_b, H_b):
     f = (cp_c*T_t3 - cp_t*T_t4) / (cp_t * T_t4 - eta_b*H_b)
 
     return f
+
+def expand(tau, e, gamma):
+
+    """Returns pressure ratio and isentropic efficiency for turbine
+    
+    Inputs:
+    - Component temperature ratio, tau
+    - Component polytropic efficiency, e
+    - Specific heat ratio across component, gamma
+    
+    Outputs:
+    - Component pressure ratio, pi
+    - Component isentropic efficiency, eta
+    """
+
+    pi = tau**(gamma/((gamma - 1)*e))
+    
+    eta = (1 - tau)/(1 - tau**(1/e))
+
+    return pi, eta

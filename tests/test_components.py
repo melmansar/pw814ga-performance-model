@@ -1,5 +1,5 @@
 from pytest import approx
-from src.components import freestream, compress, burner
+from src.components import freestream, compress, burner, expand
 
 def test_freestream_mattingly():
 
@@ -54,3 +54,10 @@ def test_burner_mattingly():
     f = burner(T_t3 = T_t3, T_t4 = 3000, cp_c = 0.240, cp_t = 0.276, eta_b = 0.99, H_b = 18400)
 
     assert f == approx(0.02868, rel=1e-3)
+
+def test_expand_mattingly():
+
+    pi_t, eta_t = expand(tau = 0.54866, e = 0.89, gamma = 1.33)
+
+    assert pi_t == approx(0.06599, rel=1e-3)
+    assert eta_t == approx(0.920, rel=1e-3)
