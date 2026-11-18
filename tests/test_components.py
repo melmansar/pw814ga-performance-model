@@ -1,5 +1,5 @@
 from pytest import approx
-from src.components import freestream, compress, burner, expand
+from src.components import freestream, compress, burner, expand, turbine_tau
 
 def test_freestream_mattingly():
 
@@ -57,7 +57,29 @@ def test_burner_mattingly():
 
 def test_expand_mattingly():
 
+    """Tests the expansion function against known inputs and outputs, using any consistent units
+                    
+    Source: Mattingly, Elements of Gas Turbine Propulsion, Example 7-6, p. 398-399
+    """
+
     pi_t, eta_t = expand(tau = 0.54866, e = 0.89, gamma = 1.33)
 
     assert pi_t == approx(0.06599, rel=1e-3)
     assert eta_t == approx(0.920, rel=1e-3)
+
+def test_turbine_tau_mattingly():
+
+    """Tests the turbine temperature ratio function against known inputs and outputs, using any consistent units
+                        
+    Source: Mattingly, Elements of Gas Turbine Propulsion, Example 7-6, p. 398-399
+    """
+
+    T_t2 = 390 * 1.128
+    T_t3 = T_t2 * 3.119
+    T_t13 = T_t2 * 1.1857
+
+    W = 0.240 * ((T_t3 - T_t2) + 8*(T_t13 - T_t2))
+
+    tau_t = turbine_tau(T_t4 = 3000, f = 0.02868, cp_t = 0.276, eta_m = 0.99, W = W)
+
+    assert tau_t == approx(0.54866, rel=1e-3)

@@ -72,7 +72,26 @@ def expand(tau, e, gamma):
     """
 
     pi = tau**(gamma/((gamma - 1)*e))
-    
+
     eta = (1 - tau)/(1 - tau**(1/e))
 
     return pi, eta
+
+def turbine_tau(T_t4, f, cp_t, eta_m, W):
+
+    """Returns pressure ratio and isentropic efficiency for turbine
+        
+    Inputs:
+    - Turbine inlet stagnation temperature, T_t4
+    - Fuel to air ratio, f
+    - Hot exhaust specific heat capacity, cp_t
+    - Engine mechanical efficiency, eta_m
+    - Work needed for the spool, W
+        
+    Outputs:
+    - Turbine temperature ratio, tau_t
+    """
+
+    tau_t = 1 - W / (eta_m * (1+f) * cp_t * T_t4)
+
+    return tau_t
