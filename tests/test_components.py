@@ -1,5 +1,5 @@
 from pytest import approx
-from src.components import freestream, compress, burner, expand, turbine_tau
+from src.components import *
 
 def test_freestream_mattingly():
 
@@ -83,3 +83,19 @@ def test_turbine_tau_mattingly():
     tau_t = turbine_tau(T_t4 = 3000, f = 0.02868, cp_t = 0.276, eta_m = 0.99, W = W)
 
     assert tau_t == approx(0.54866, rel=1e-3)
+
+def test_nozzle():
+
+    """Tests the nozzle function against known inputs and outputs, using any consistent units
+                            
+    Source: Mattingly, Elements of Gas Turbine Propulsion, Example 7-6, p. 398-399
+    """
+
+    M9, Tt9_over_T9 = nozzle(Pt_over_P = 3.066, gamma = 1.33)
+    M19, Tt19_over_T19 = nozzle(Pt_over_P = 2.286, gamma = 1.4)
+
+    assert M9 == approx(1.394, rel=1e-3)
+    assert M19 == approx(1.154, rel=1e-3)
+
+    assert (3000 * 0.54866 / 390) / Tt9_over_T9 == approx(3.196, rel=1e-3)
+    assert (1.128 * 1.1857) / Tt19_over_T19 == approx(1.0561, rel=1e-3)

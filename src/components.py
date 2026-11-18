@@ -79,14 +79,14 @@ def expand(tau, e, gamma):
 
 def turbine_tau(T_t4, f, cp_t, eta_m, W):
 
-    """Returns pressure ratio and isentropic efficiency for turbine
+    """Returns temperature ratio for turbine using power balance
         
     Inputs:
     - Turbine inlet stagnation temperature, T_t4
     - Fuel to air ratio, f
     - Hot exhaust specific heat capacity, cp_t
     - Engine mechanical efficiency, eta_m
-    - Work needed for the spool, W
+    - Work needed for the spool per unit mass of core air, W
         
     Outputs:
     - Turbine temperature ratio, tau_t
@@ -95,3 +95,22 @@ def turbine_tau(T_t4, f, cp_t, eta_m, W):
     tau_t = 1 - W / (eta_m * (1+f) * cp_t * T_t4)
 
     return tau_t
+
+def nozzle(Pt_over_P, gamma):
+
+    """Returns Tt/T and exit Mach number for nozzle
+            
+    Inputs:
+    - Stagnation to static pressure ratio, Pt_over_P
+    - Specific heat ratios, gamma
+            
+    Outputs:
+    - Exit Mach number, M
+    - Stanation to static temperature ratio, Tt_over_T
+    """
+
+    M = (2/(gamma - 1) * (Pt_over_P**((gamma - 1)/gamma) - 1))**0.5
+
+    Tt_over_T = 1 + 0.5*(gamma - 1)*M**2
+
+    return M, Tt_over_T
