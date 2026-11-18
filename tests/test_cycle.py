@@ -1,3 +1,4 @@
+from pytest import approx
 from src.cycle import cycle
 
 def test_cycle_mattingly():
