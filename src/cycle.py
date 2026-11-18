@@ -23,6 +23,7 @@ def cycle(inputs):
     pi_n = inputs["pi_n"]
     pi_fn = inputs["pi_fn"]
     P0_over_P9 = inputs["P0_over_P9"]
+    P0_over_P19 = inputs["P0_over_P19"]
 
     R_c = (gamma_c - 1)/gamma_c*cp_c
     R_t = (gamma_t - 1)/gamma_t*cp_t
@@ -32,7 +33,7 @@ def cycle(inputs):
 
     tau_r, pi_r = freestream(M0, gamma_c)
 
-    T_t2 = inputs['T0'] * tau_r
+    T_t2 = T0 * tau_r
 
     tau_c, eta_c = compress(pi_c, e_c, gamma_c)
     tau_f, eta_f = compress(pi_f, e_f, gamma_c)
@@ -51,7 +52,7 @@ def cycle(inputs):
     T_t5 = T_t4 * tau_t
 
     Pt9_over_P9 = P0_over_P9 * pi_r * pi_d * pi_c * pi_b * pi_t * pi_n
-    Pt19_over_P19 = P0_over_P9 * pi_r * pi_d * pi_f * pi_fn
+    Pt19_over_P19 = P0_over_P19 * pi_r * pi_d * pi_f * pi_fn
 
     M9, Tt9_over_T9 = nozzle(Pt9_over_P9, gamma_t)
     M19, Tt19_over_T19 = nozzle(Pt19_over_P19, gamma_c)
@@ -62,7 +63,7 @@ def cycle(inputs):
     T19 = T_t13 / Tt19_over_T19
     V19 = M19 *(gamma_c * R_c * T19)**0.5
 
-    specific_thrust = 1/(1+alpha) * ((1+f)*V9 - V0 + (1+f)*R_t*T9*(1 - P0_over_P9)/V9) + alpha/(1+alpha)*(V19 - V0 +R_c*T19*(1-P0_over_P9)/V19)
+    specific_thrust = 1/(1+alpha) * ((1+f)*V9 - V0 + (1+f)*R_t*T9*(1 - P0_over_P9)/V9) + alpha/(1+alpha)*(V19 - V0 +R_c*T19*(1-P0_over_P19)/V19)
 
     specific_fuel_consumption = f / ((1 + alpha) * specific_thrust)
 
@@ -80,7 +81,8 @@ def cycle(inputs):
     # turbine
     "tau_t": tau_t,        
     "pi_t": pi_t,          
-    "eta_t": eta_t,          
+    "eta_t": eta_t,
+    "T_t5": T_t5,      
     # core nozzle
     "Pt9_over_P9": Pt9_over_P9,    
     "M9": M9,                      
