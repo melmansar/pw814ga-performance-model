@@ -106,7 +106,7 @@ def nozzle(Pt_over_P, gamma):
             
     Outputs:
     - Exit Mach number, M
-    - Stanation to static temperature ratio, Tt_over_T
+    - Stagnation to static temperature ratio, Tt_over_T
     """
 
     M = (2/(gamma - 1) * (Pt_over_P**((gamma - 1)/gamma) - 1))**0.5
