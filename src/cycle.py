@@ -2,6 +2,33 @@ from src.components import *
 
 def cycle(inputs):
 
+    """Runs a full cycle analysis for a separate exhaust layout turbofan engine, in SI units.
+
+    Inputs:
+    - Freestream temperature, T0 [K]
+    - Freestream Mach number, M0
+    - Cold air specific heat ratio, gamma_c
+    - Hot exhaust specific heat ratio, gamma_t
+    - Cold air specific heat capacity, cp_c [J/(kg K)]
+    - Hot exhaust specific heat capacity, cp_t [J/(kg K)]
+    - Engine bypass ratio, alpha
+    - Compressor pressure ratio, pi_c
+    - Fan pressure ratio, pi_f
+    - Diffuser pressure ratio, pi_d
+    - Compressor polytropic efficiency, e_c
+    - Fan polytropic efficiency, e_f
+    - Turbine inlet stagnation temperature, T_t4 [K]
+    - Burner efficiency, eta_b
+    - Fuel heat of reaction, H_b [J/kg]
+    - Engine mechanical efficiency, eta_m
+    - Turbine polytropic efficiency, e_t
+    - Burner pressure ratio, pi_b
+    - Core nozzle pressure ratio, pi_n
+    - Fan nozzle pressure ratio, pi_fn
+    - Freestream static pressure to core nozzle exit static pressure ratio, P0_over_P9
+    - Freestream static pressure to fan nozzle exit static pressure ratio, P0_over_P19
+    """
+
     T0 = inputs["T0"]
     M0 = inputs["M0"]
     gamma_c = inputs["gamma_c"]
