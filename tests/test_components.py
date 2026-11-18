@@ -1,5 +1,5 @@
 from pytest import approx
-from src.components import freestream, compress
+from src.components import freestream, compress, burner
 
 def test_freestream_mattingly():
 
@@ -41,3 +41,16 @@ def test_compress_fan():
 
     assert tau_f == approx(1.1857, rel=1e-3)
     assert eta_f == approx(0.882, rel=1e-3)
+
+def test_burner_mattingly():
+
+    """Tests the burner function against known inputs and outputs
+                
+        Source: Mattingly, Elements of Gas Turbine Propulsion, Example 7-6, p. 398-399
+        """
+
+    T_t3 = 390 * 1.128 * 3.119
+
+    f = burner(T_t3, 3000, 0.240, 0.276, 0.99, 18400)
+
+    assert f == approx(0.02868, rel=1e-3)

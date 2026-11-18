@@ -35,3 +35,23 @@ def compress(pi, e, gamma):
     eta = (pi**((gamma - 1)/gamma) - 1)/(tau - 1)
 
     return tau, eta
+
+def burner(T_t3, T_t4, cp_c, cp_t, eta_b, H_b):
+
+    """Returns fuel to air ratio
+    
+        Inputs:
+        - Burner inlet stagnation temperature, T_t3
+        - Burner outlet stagnation temperature, T_t4
+        - Burner efficiency, eta_b
+        - Burner fuel heat of reaction, H_b
+        - Cold air specific heat capacity, cp_c
+        - Hot exhaust specific heat capacity, cp_t
+    
+        Outputs:
+        - Fuel to air ratio, f
+        """
+
+    f = (cp_c*T_t3 - cp_t*T_t4) / (cp_t * T_t4 - eta_b*H_b)
+
+    return f
