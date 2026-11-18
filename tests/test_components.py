@@ -44,13 +44,13 @@ def test_compress_fan():
 
 def test_burner_mattingly():
 
-    """Tests the burner function against known inputs and outputs
+    """Tests the burner function against known inputs and outputs, using any consistent units
                 
-        Source: Mattingly, Elements of Gas Turbine Propulsion, Example 7-6, p. 398-399
-        """
+    Source: Mattingly, Elements of Gas Turbine Propulsion, Example 7-6, p. 398-399
+    """
 
     T_t3 = 390 * 1.128 * 3.119
 
-    f = burner(T_t3, 3000, 0.240, 0.276, 0.99, 18400)
+    f = burner(T_t3 = T_t3, T_t4 = 3000, cp_c = 0.240, cp_t = 0.276, eta_b = 0.99, H_b = 18400)
 
     assert f == approx(0.02868, rel=1e-3)
