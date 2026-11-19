@@ -114,3 +114,37 @@ def nozzle(Pt_over_P, gamma):
     Tt_over_T = 1 + 0.5*(gamma - 1)*M**2
 
     return M, Tt_over_T
+
+def mixer(alpha_prime, T_t6, T_t16, cp_6, cp_16, R_6, R_16, P_t6, pi_m):
+
+    """Returns mixer exit stagnation temperature and pressure
+                
+    Inputs:
+    - Mass ratio of two incoming streams, alpha_prime
+    - Core stream stagnation temperature, T_t6
+    - Bypass stream stagnation temperature, T_t16
+    - Core stream specific heat capacity, cp_6
+    - Bypass stream specific heat capacity, cp_16
+    - Core stream gas constant, R_6
+    - Bypass stream gas constant, R_16
+    - Core stream stagnation pressure, P_t6
+    - Mixer pressure ratio, pi_m
+                
+    Outputs:
+    - Mixed flow stagnation temperature, T_t6A
+    - Mixed flow stagnation pressure, p_t6A
+    - Mixed stream specific heat capacity, cp_6A
+    - Mixed stream gas constant, R_6A
+    - Mixed stream specific heat ratio, gamma_6A
+    """
+    
+
+    cp_6A = (cp_6 + alpha_prime * cp_16) / (1 + alpha_prime)
+    R_6A = (R_6 + alpha_prime * R_16) / (1 + alpha_prime)
+    gamma_6A = cp_6A / (cp_6A - R_6A)
+
+    T_t6A = (cp_6*T_t6 + alpha_prime*cp_16*T_t16) / ((1 + alpha_prime)*cp_6A)
+
+    P_t6A = P_t6 * pi_m
+
+    return T_t6A, P_t6A, cp_6A, R_6A, gamma_6A

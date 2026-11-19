@@ -100,3 +100,40 @@ def test_nozzle():
     assert (3000 * 0.54866 / 390) / Tt9_over_T9 == approx(3.196, rel=1e-3)
     assert (1.128 * 1.1857) / Tt19_over_T19 == approx(1.0561, rel=1e-3)
 
+def test_mixer_no_bypass():
+
+    """With no bypass air, the mixed stream is just the core stream.
+    Hand check, no textbook source.
+    """
+
+    T_t6A, P_t6A, cp_6A, R_6A, gamma_6A = mixer(alpha_prime = 0, T_t6 = 1000, T_t16 = 350, cp_6 = 1150, cp_16 = 1005, R_6 = 287, R_16 = 287, P_t6 = 200000, pi_m = 1.0)
+
+    assert T_t6A == approx(1000, rel=1e-3)
+    assert cp_6A == approx(1150, rel=1e-3)
+    assert P_t6A == approx(200000, rel=1e-3)
+
+
+def test_mixer_equal_streams():
+
+    """Equal amounts of the same gas: temperature is the plain average.
+    Hand check, no textbook source.
+    """
+
+    T_t6A, P_t6A, cp_6A, R_6A, gamma_6A = mixer(alpha_prime = 1, T_t6 = 800, T_t16 = 400, cp_6 = 1000, cp_16 = 1000, R_6 = 287, R_16 = 287, P_t6 = 200000, pi_m = 1.0)
+
+    assert T_t6A == approx(600, rel=1e-3)
+    assert cp_6A == approx(1000, rel=1e-3)
+
+
+def test_mixer_hand_calc():
+
+    """Realistic case checked by hand calculation.
+    """
+
+    T_t6A, P_t6A, cp_6A, R_6A, gamma_6A  = mixer(alpha_prime = 5, T_t6 = 1000, T_t16 = 350, cp_6 = 1150, cp_16 = 1005, R_6 = 287, R_16 = 287, P_t6 = 200000, pi_m = 0.98)
+
+    assert cp_6A == approx(1029.17, rel=1e-4)
+    assert R_6A == approx(287, rel=1e-4)
+    assert gamma_6A == approx(1.3867, rel=1e-4)
+    assert T_t6A == approx(471.05, rel=1e-4)
+    assert P_t6A == approx(196000, rel=1e-4)
